@@ -1,168 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Website</title>
+    <title>My PDF Website</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            background-color: #f4f4f4;
+            font-family: Arial;
+            margin: 20px;
         }
-        textarea {
+        iframe {
             width: 100%;
-            height: 300px;
-            font-size: 16px;
-            padding: 10px;
-        }
-        .content {
-            margin-top: 20px;
-            white-space: pre-wrap;
-            background: white;
-            padding: 20px;
-            border-radius: 5px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin-top: 10px;
+            height: 600px;
+            border: none;
         }
     </style>
 </head>
 <body>
 
-<h1>Write Anything You Want</h1>
+<h1>My Notes PDF</h1>
 
-<textarea id="textInput" placeholder="Write here... 
-    
-//4. Design, Develop and Implement a Program in C for the following Stack Applications a. Evaluation of Suffix expression with single digit operands and operators: +, -, *, /,%, ^b. Solving Tower of Hanoi problem with n disks.
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <math.h>
+<p>View my PDF directly below:</p>
 
-#define MAX 100
+<iframe src="notes.pdf"></iframe>
 
-// ---------------- Stack for Postfix Evaluation ----------------
-typedef struct {
-    int arr[MAX];
-    int top;
-} Stack;
+<br><br>
 
-void initStack(Stack *s) {
-    s->top = -1;
-}
-
-int isEmpty(Stack *s) {
-    return (s->top == -1);
-}
-
-int isFull(Stack *s) {
-    return (s->top == MAX - 1);
-}
-
-void push(Stack *s, int val) {
-    if (isFull(s)) {
-        printf("Stack Overflow!\n");
-        return;
-    }
-    s->arr[++s->top] = val;
-}
-
-int pop(Stack *s) {
-    if (isEmpty(s)) {
-        printf("Stack Underflow!\n");
-        return -1;
-    }
-    return s->arr[s->top--];
-}
-
-// Function to evaluate postfix expression
-int evaluatePostfix(char exp[]) {
-    Stack s;
-    initStack(&s);
-
-    for (int i = 0; exp[i] != '\0'; i++) {
-        char ch = exp[i];
-
-        if (isdigit(ch)) {
-            push(&s, ch - '0');   // convert char to int
-        } else {
-            int val2 = pop(&s);
-            int val1 = pop(&s);
-            switch (ch) {
-                case '+': push(&s, val1 + val2); break;
-                case '-': push(&s, val1 - val2); break;
-                case '*': push(&s, val1 * val2); break;
-                case '/': push(&s, val1 / val2); break;
-                case '%': push(&s, val1 % val2); break;
-                case '^': push(&s, (int)pow(val1, val2)); break;
-                default:
-                    printf("Invalid Operator %c\n", ch);
-                    exit(1);
-            }
-        }
-    }
-    return pop(&s);
-}
-
-// ---------------- Tower of Hanoi ----------------
-void towerOfHanoi(int n, char src, char aux, char dest) {
-    if (n == 1) {
-        printf("Move disk 1 from %c to %c\n", src, dest);
-        return;
-    }
-    towerOfHanoi(n - 1, src, dest, aux);
-    printf("Move disk %d from %c to %c\n", n, src, dest);
-    towerOfHanoi(n - 1, aux, src, dest);
-}
-
-// ---------------- Main Program ----------------
-int main() {
-    int choice, n;
-    char exp[MAX];
-
-    while (1) {
-        printf("\n--- Stack Applications Menu ---\n");
-        printf("1. Evaluate Postfix Expression\n");
-        printf("2. Tower of Hanoi\n");
-        printf("3. Exit\n");
-        printf("Enter your choice: ");
-        scanf("%d", &choice);
-
-        switch (choice) {
-            case 1:
-                printf("Enter postfix expression: ");
-                scanf("%s", exp);
-                printf("Result = %d\n", evaluatePostfix(exp));
-                break;
-
-            case 2:
-                printf("Enter number of disks: ");
-                scanf("%d", &n);
-                printf("The sequence of moves:\n");
-                towerOfHanoi(n, 'A', 'B', 'C');
-                break;
-
-            case 3:
-                exit(0);
-
-            default:
-                printf("Invalid choice!\n");
-        }
-    }
-    return 0;
-}"></textarea>
-<br>
-<button onclick="publishText()">Publish</button>
-
-<div class="content" id="output"></div>
-
-<script>
-function publishText() {
-    const text = document.getElementById("textInput").value;
-    document.getElementById("output").innerText = text;
-}
-</script>
+<a href="notes.pdf" download>Download PDF</a>
 
 </body>
 </html>
